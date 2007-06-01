@@ -122,4 +122,4 @@ rm -fr $RPM_BUILD_ROOT%{_docdir}/%{name}-0.9.3
 %_libdir/pkgconfig/*.pc
 
 %files -n %{libname}-python
-%python_sitelib/pyrapi2.*
+%python_sitearch/pyrapi2.*
