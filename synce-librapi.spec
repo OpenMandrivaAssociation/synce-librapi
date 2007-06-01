@@ -35,6 +35,8 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wc
 %package -n %libname-python
 Group: System/Libraries
 Summary: SynCE: Remote Application Programming Interface (RAPI) library
+Provides: %{shortname}-python = %{version}-%{release}
+Provides: lib%{shortname}-python = %{version}-%{release}
 Requires: %{libname} = %{version}-%{release}
 Requires: python
 
