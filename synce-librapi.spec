@@ -32,12 +32,13 @@ is available at this address:
 
 http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wcesdk_CeRapiInit.asp
 
-%package  python
+%package -n %libname-python
 Group: System/Libraries
 Summary: SynCE: Remote Application Programming Interface (RAPI) library
 Requires: %{libname} = %{version}-%{release}
+Requires: python
 
-%description python
+%description -n %libname-python
 Librapi is part of the SynCE project:
 
   http://synce.sourceforge.net/
@@ -118,5 +119,5 @@ rm -fr $RPM_BUILD_ROOT%{_docdir}/%{name}-0.9.3
 %{_includedir}/rapi.h
 %_libdir/pkgconfig/*.pc
 
-%files python
+%files -n %{libname}-python
 %python_sitelib/pyrapi2.*
