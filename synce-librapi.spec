@@ -1,7 +1,7 @@
 %define name     synce-librapi
 %define shortname rapi
-%define release  %mkrel 4
-%define version  0.9.3
+%define release  %mkrel 1
+%define version  0.10.0
 
 %define major 2
 
@@ -12,11 +12,13 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 License: MIT
-Group: Development/Libraries
-Source: %{name}-%{version}.tar.bz2
+Group: System/Libraries
+Source: %{name}%{major}-%{version}.tar.bz2
 URL: http://synce.sourceforge.net/
 Buildroot: %{_tmppath}/%name-root
 BuildRequires: libsynce-devel = %{version}
+BuildRequires: python-devel
+BuildRequires: python-pyrex
 
 %description
 Librapi is part of the SynCE project:
@@ -30,8 +32,25 @@ is available at this address:
 
 http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wcesdk_CeRapiInit.asp
 
+%package  python
+Group: System/Libraries
+Summary: SynCE: Remote Application Programming Interface (RAPI) library
+Requires: %{libname} = %{version}-%{release}
+
+%description python
+Librapi is part of the SynCE project:
+
+  http://synce.sourceforge.net/
+
+The RAPI library is an open source implementation that works like RAPI.DLL,
+available on Microsoft operating systems. The library makes it possible to make
+remote calls to a computer running Pocket PC. Documentation for the RAPI calls
+is available at this address:
+
+http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wcesdk_CeRapiInit.asp
+
 %package -n %libname
-Group: Development/Libraries
+Group: System/Libraries
 Summary: SynCE: Remote Application Programming Interface (RAPI) library
 Provides: lib%{shortname} = %{version}-%{release}
 Conflicts: %{_lib}synce0 < 0.9.3
@@ -49,7 +68,7 @@ is available at this address:
 http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wcesdk_CeRapiInit.asp
 
 %package -n %libname-devel
-Group: Development/Libraries
+Group: System/Libraries
 Summary: SynCE: Remote Application Programming Interface (RAPI) library
 Provides: lib%{shortname}-devel = %{version}-%{release}
 Requires: %{libname} = %{version}-%{release}
@@ -68,7 +87,7 @@ is available at this address:
 http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wcesdk_CeRapiInit.asp
 
 %prep
-%setup -q -n lib%{shortname}-%{version}
+%setup -q -n lib%{shortname}%{major}-%{version}
 
 %build
 %configure --with-libsynce=%{_prefix}
@@ -76,6 +95,7 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wc
 
 %install
 %makeinstall
+rm -fr $RPM_BUILD_ROOT%{_docdir}/%{name}-0.9.3
 
 %post -n %{libname} -p /sbin/ldconfig
 %postun -n %{libname} -p /sbin/ldconfig
@@ -98,4 +118,5 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wc
 %{_includedir}/rapi.h
 %_libdir/pkgconfig/*.pc
 
-
+%files python
+%python_sitelib/pyrapi2.*
