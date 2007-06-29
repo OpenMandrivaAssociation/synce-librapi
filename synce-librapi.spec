@@ -1,6 +1,6 @@
 %define name     synce-librapi
 %define shortname rapi
-%define release  %mkrel 1
+%define release  %mkrel 2
 %define version  0.10.0
 
 %define major 2
@@ -19,6 +19,7 @@ Buildroot: %{_tmppath}/%name-root
 BuildRequires: libsynce-devel = %{version}
 BuildRequires: python-devel
 BuildRequires: python-pyrex
+Conflicts: synce < 0.9.3
 
 %description
 Librapi is part of the SynCE project:
@@ -93,12 +94,12 @@ http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wcesdkr/htm/_wc
 %setup -q -n lib%{shortname}%{major}-%{version}
 
 %build
-%configure --with-libsynce=%{_prefix}
+%configure2_5x --with-libsynce=%{_prefix}
 %make
 
 %install
-%makeinstall
-rm -fr $RPM_BUILD_ROOT%{_docdir}/%{name}-0.9.3
+rm -rf %buildroot
+%makeinstall_std
 
 %post -n %{libname} -p /sbin/ldconfig
 %postun -n %{libname} -p /sbin/ldconfig
