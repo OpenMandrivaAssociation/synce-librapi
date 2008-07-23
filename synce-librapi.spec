@@ -1,6 +1,6 @@
 %define name     synce-librapi
 %define shortname rapi
-%define release  %mkrel 2
+%define release  %mkrel 4
 %define version  0.10.0
 
 %define major 2
